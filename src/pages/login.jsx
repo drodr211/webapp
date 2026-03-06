@@ -19,7 +19,7 @@ function Login() {
 
         if (error) { 
             setMessage(error.message); 
-            setEmail(""); setPassword("");
+            setPassword("");
             return; 
         }
         if (data) { 

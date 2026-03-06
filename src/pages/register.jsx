@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import supabase  from "../helper/supabaseClient"
-import { Link } from "react-router-dom";
+import { Link , useNavigate} from "react-router-dom";
 
 function Register() {
+    const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [message, setMessage] = useState("");
@@ -16,10 +17,21 @@ function Register() {
             password: password,
         });
 
-        if (error) { setMessage(error.message); return; }
-        if (data) { setMessage("User Account Created"); }
-
-        setEmail(""); setPassword("");
+        if (error) { 
+            setMessage(error.message);
+            switch (error.code) {
+                case "weak_password":
+                    setPassword(""); break;
+                default:
+                    setEmail("");
+                    setPassword("");
+            }
+            return; 
+        }
+        if (data) { 
+            setMessage("User Account Created"); 
+            navigate("/dashboard"); return null;
+        }
 
     };
 
