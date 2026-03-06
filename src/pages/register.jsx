@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import supabase  from "../helper/supabaseClient"
-import "../helper/register.css"
+import { Link } from "react-router-dom";
 
 function Register() {
     const [email, setEmail] = useState("");
@@ -26,16 +26,15 @@ function Register() {
     return (
         <div className="maxSize centercenter">
             <h2 >Register</h2>
-            <br></br>
-            {message && <span>{message}</span>}
+            {message && <p>{message}</p>}
             <form className="centercenter" onSubmit={handleSubmit}>
-                <p>Email:</p>
+                <span>Email:</span>
                 <input type="email" placeholder="Email" required 
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 ></input>
                 
-                <p>Password:</p>
+                <span>Password:</span>
                 <input type="password" placeholder="Password" required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -44,6 +43,9 @@ function Register() {
                 <br></br>
                 <button type="submit">Create Account</button>
             </form> 
+            <br></br>
+            <span>Already have an account?</span>
+            <Link to="/login"> Login </Link>
         </div>
     );
 }
